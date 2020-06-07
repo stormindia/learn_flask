@@ -30,7 +30,7 @@ Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 NameError: name 'user_24' is not defined
 >>> db.session.add(user_2)
->>> db.session.commit()                                                                                                 >>> db.session.commit()
+>>> db.session.commit()                                                                                                  
 >>> User.query.all()
 [User('admin', 'abc@def.com', 'default.jpg'), User('John', 'abssc@def.com', 'default.jpg')]
 >>> User.query.first()
@@ -49,7 +49,7 @@ SyntaxError: EOL while scanning string literal
     User.query.filter_by(username='admin).all()
                                               ^
 SyntaxError: EOL while scanning string literal
->>> User.query.filter_by(username='admin')                                                                              >>> User.query.filter_by(username='admin')
+>>> User.query.filter_by(username='admin')                                                                              
 <flask_sqlalchemy.BaseQuery object at 0x7f573e306c10>
 >>> User.query.filter_by(username='admin').all()
 [User('admin', 'abc@def.com', 'default.jpg')]
