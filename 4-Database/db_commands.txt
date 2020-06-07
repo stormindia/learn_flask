@@ -1,0 +1,151 @@
+(flask_env) storm@storm:/mnt/d/my_projects/learn_flask/4-Database$ python
+Python 3.8.2 (default, Apr 27 2020, 15:53:34)
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from flask_blog import db
+/mnt/d/my_projects/learn_flask/flask_env/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py:833: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
+  warnings.warn(FSADeprecationWarning(
+>>> db.create_all()
+>>> exit()
+(flask_env) storm@storm:/mnt/d/my_projects/learn_flask/4-Database$
+(flask_env) storm@storm:/mnt/d/my_projects/learn_flask/4-Database$ ls
+__pycache__  flask_blog.py  forms.py  site.db  static  templates
+(flask_env) storm@storm:/mnt/d/my_projects/learn_flask/4-Database$ python
+Python 3.8.2 (default, Apr 27 2020, 15:53:34)
+[GCC 9.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from flask_blog import User, Post
+/mnt/d/my_projects/learn_flask/flask_env/lib/python3.8/site-packages/flask_sqlalchemy/__init__.py:833: FSADeprecationWarning: SQLALCHEMY_TRACK_MODIFICATIONS adds significant overhead and will be disabled by default in the future.  Set it to True or False to suppress this warning.
+  warnings.warn(FSADeprecationWarning(
+>>> user_1 = User(username='admin', email='abc@def.com',password='password')
+>>> db.session.add(user_1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'db' is not defined
+>>> from flask_blog import db
+>>> db.session.add(user_1)
+>>> user_2 = User(username='John', email='abssc@def.com',password='password')
+>>> db.session.add(user_24)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'user_24' is not defined
+>>> db.session.add(user_2)
+>>> db.session.commit()                                                                                                 >>> db.session.commit()
+>>> User.query.all()
+[User('admin', 'abc@def.com', 'default.jpg'), User('John', 'abssc@def.com', 'default.jpg')]
+>>> User.query.first()
+User('admin', 'abc@def.com', 'default.jpg')
+>>> User.query.all()[0]
+User('admin', 'abc@def.com', 'default.jpg')
+>>> User.query.all()[1]
+User('John', 'abssc@def.com', 'default.jpg')
+>>> User.query.filter_by(username='admin)
+  File "<stdin>", line 1
+    User.query.filter_by(username='admin)
+                                        ^
+SyntaxError: EOL while scanning string literal
+>>> User.query.filter_by(username='admin).all()
+  File "<stdin>", line 1
+    User.query.filter_by(username='admin).all()
+                                              ^
+SyntaxError: EOL while scanning string literal
+>>> User.query.filter_by(username='admin')                                                                              >>> User.query.filter_by(username='admin')
+<flask_sqlalchemy.BaseQuery object at 0x7f573e306c10>
+>>> User.query.filter_by(username='admin').all()
+[User('admin', 'abc@def.com', 'default.jpg')]
+>>> user = User.query.filter_by(username='admin').all()
+>>> user
+[User('admin', 'abc@def.com', 'default.jpg')]
+>>> user.id
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'list' object has no attribute 'id'
+>>> user[0].id
+1
+>>> user = User.query.get(1)
+>>> user
+User('admin', 'abc@def.com', 'default.jpg')
+>>> user.posts
+[]
+>>>
+>>> user.id
+1
+>>> post_1 = Post(title='Blog 1', content='First Post Content!', user_id = user.id)
+>>> post_2 = Post(title='Blog 2', content='Second Post Content!', user_id = user.id)
+>>> db.session.add(post_1)
+>>> db.session.add(post_2)
+>>> db.session.commit()
+>>> user.posts
+[Post('Blog 1' , '2020-06-07 12:26:27.686076'), Post('Blog 2' , '2020-06-07 12:26:27.686926')]
+>>> for post in user.post:
+... print(post.title)
+  File "<stdin>", line 2
+    print(post.title)
+    ^
+IndentationError: expected an indented block
+>>>     print(post.title)
+  File "<stdin>", line 1
+    print(post.title)
+    ^
+IndentationError: unexpected indent
+>>>
+>>> for post in user.post:
+...     print(post.title)
+...
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'User' object has no attribute 'post'
+>>> for post in user.posts:
+...     print(post.title)
+...
+Blog 1
+Blog 2
+>>> post = Post.query.get()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: get() missing 1 required positional argument: 'ident'
+>>> post = Post.query.all()
+>>>
+>>>
+>>>
+>>>
+>>> post = Post.query.get(1)
+>>>
+>>> post = Post.query.first(1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: first() takes 1 positional argument but 2 were given
+>>> post = Post.query.first()
+>>>
+>>>
+>>>
+>>>
+>>> db.session.commit()
+>>> post = Post.query.first()
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>> post
+>>> post
+Post('Blog 1' , '2020-06-07 12:26:27.686076')
+>>> post.user_id
+1
+>>> post.id
+1
+>>> post.title
+'Blog 1'
+>>> post.content
+'First Post Content!'
+>>> post.author
+User('admin', 'abc@def.com', 'default.jpg')
+>>>
+>>> db.drop_all()
+>>> db.create_all()
+>>> User.query.all()
+[]
+>>> exit()
